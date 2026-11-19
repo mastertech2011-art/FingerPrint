@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>لوحة التحضير</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;600;700;800&family=Tajawal:wght@400;500;700&display=swap">
+<style>
+/* Layout: a cheerful classroom register — mascot header, bubbly tabs, one working panel at a time. */
+:root {
+  --bg: #fff6fa; --surface: #ffffff; --surface-2: #fff0f6; --ink: #2d1b3d; --muted: #7d6a8c; --line: #f3d9e6;
+  --pink: #ff4f9a; --pink-ink: #ffffff; --pink-soft: #ffe1ef; --yellow: #ffc83d; --yellow-soft: #fff3cf;
+  --ok: #12b886; --ok-soft: #d9f7ec; --late: #ff922b; --late-soft: #ffead6; --abs: #f03e5e; --abs-soft: #ffe0e6; --exc: #7c5cff; --exc-soft: #ebe5ff; --run: #1c7ed6; --run-soft: #dbeaff;
+  --c1: #ffd6e8; --c2: #fff0b8; --c3: #c9f5e3; --c4: #cfe8ff; --c5: #e3dbff; --c6: #ffe1c7; --c7: #e4f7c2; --c8: #ffd9d4;
+  --shadow: 0 6px 0 #f6cfe1; --font-display: "Baloo Bhaijaan 2", "Tajawal", system-ui, sans-serif; --font-body: "Tajawal", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1c1226; --surface: #291b36; --surface-2: #33223f; --ink: #fbeef7; --muted: #c6b2d6; --line: #46304f;
+  --pink: #ff6aab; --pink-ink: #2a0f1d; --pink-soft: #4a2340; --yellow: #ffd45e; --yellow-soft: #4a3d1c;
+  --ok: #38d9a9; --ok-soft: #173d33; --late: #ffa94d; --late-soft: #4a3020; --abs: #ff6b81; --abs-soft: #4d2030; --exc: #9d86ff; --exc-soft: #2f2652; --run: #4dabf7; --run-soft: #1b3350;
+  --c1: #5a2a45; --c2: #574a1f; --c3: #1f4a3b; --c4: #213f5c; --c5: #362c5e; --c6: #5a3a22; --c7: #36481d; --c8: #5a2d2a;
+  --shadow: 0 6px 0 #140c1b; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #1c1226; --surface: #291b36; --surface-2: #33223f; --ink: #fbeef7; --muted: #c6b2d6; --line: #46304f;
+  --pink: #ff6aab; --pink-ink: #2a0f1d; --pink-soft: #4a2340; --yellow: #ffd45e; --yellow-soft: #4a3d1c;
+  --ok: #38d9a9; --ok-soft: #173d33; --late: #ffa94d; --late-soft: #4a3020; --abs: #ff6b81; --abs-soft: #4d2030; --exc: #9d86ff; --exc-soft: #2f2652; --run: #4dabf7; --run-soft: #1b3350;
+  --c1: #5a2a45; --c2: #574a1f; --c3: #1f4a3b; --c4: #213f5c; --c5: #362c5e; --c6: #5a3a22; --c7: #36481d; --c8: #5a2d2a;
+  --shadow: 0 6px 0 #140c1b; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--ink); }
+body { font-family: var(--font-body); font-size: 15px; line-height: 1.6; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 48px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+h1, h2, h3 { font-family: var(--font-display); margin: 0; line-height: 1.25; text-wrap: balance; }
+h2 { font-size: 1.35rem; }
+h3 { font-size: 1.1rem; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+.num, .tnum { font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+
+/* header */
+.top { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding-top: 18px; }
+.mascot { width: 62px; height: 62px; flex: none; }
+.top-text { flex: 1 1 220px; min-width: 0; }
+.top h1 { font-size: 1.8rem; font-weight: 800; }
+.top h1 span { color: var(--pink); }
+.dates { color: var(--muted); font-size: .92rem; }
+.now-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--yellow-soft); border: 2px solid var(--yellow); border-radius: 999px; padding: 6px 14px; font-weight: 700; font-family: var(--font-display); }
+.now-pill i { width: 10px; height: 10px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 0 4px var(--pink-soft); }
+.banner { background: var(--exc-soft); color: var(--ink); border: 2px dashed var(--exc); border-radius: 18px; padding: 10px 16px; font-size: .93rem; }
+
+/* tabs */
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 8px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { flex: none; border: 2px solid var(--line); background: var(--surface); border-radius: 999px; padding: 8px 16px; font-family: var(--font-display); font-weight: 600; font-size: 1rem; display: inline-flex; gap: 6px; align-items: center; transition: transform .15s; }
+.tab:hover { transform: translateY(-2px); }
+.tab[aria-selected="true"] { background: var(--pink); border-color: var(--pink); color: var(--pink-ink); box-shadow: 0 4px 0 color-mix(in srgb, var(--pink) 55%, #000); }
+.tab svg { width: 18px; height: 18px; }
+
+/* cards */
+.card { background: var(--surface); border: 2px solid var(--line); border-radius: 24px; padding: 18px; box-shadow: var(--shadow); min-width: 0; }
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 18px; align-items: start; }
+@media (max-width: 820px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+
+/* buttons & fields */
+.btn { border: none; border-radius: 14px; padding: 9px 18px; font-family: var(--font-display); font-weight: 700; font-size: 1rem; background: var(--pink); color: var(--pink-ink); box-shadow: 0 4px 0 color-mix(in srgb, var(--pink) 55%, #000); transition: transform .1s, box-shadow .1s; }
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 color-mix(in srgb, var(--pink) 55%, #000); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn.ghost { background: var(--surface-2); color: var(--ink); box-shadow: 0 4px 0 var(--line); border: 2px solid var(--line); }
+.btn.small { padding: 5px 12px; font-size: .9rem; border-radius: 11px; }
+.field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.field label { font-size: .85rem; color: var(--muted); font-weight: 700; }
+.input { border: 2px solid var(--line); background: var(--surface-2); border-radius: 12px; padding: 7px 10px; min-width: 0; width: 100%; }
+.input:focus { border-color: var(--pink); outline: none; }
+.row-fields { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.row-fields .field { flex: 1 1 140px; }
+
+/* KPIs */
+.kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 640px) { .kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.kpi { border-radius: 22px; padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; border: 2px solid transparent; }
+.kpi b { font-family: var(--font-display); font-size: 2.2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi span { font-weight: 700; }
+.kpi.ok { background: var(--ok-soft); border-color: var(--ok); } .kpi.ok b { color: var(--ok); }
+.kpi.late { background: var(--late-soft); border-color: var(--late); } .kpi.late b { color: var(--late); }
+.kpi.exc { background: var(--exc-soft); border-color: var(--exc); } .kpi.exc b { color: var(--exc); }
+.kpi.abs { background: var(--abs-soft); border-color: var(--abs); } .kpi.abs b { color: var(--abs); }
+.kpi.run { background: var(--run-soft); border-color: var(--run); } .kpi.run b { color: var(--run); }
+
+/* sessions */
+.sessions { display: flex; flex-direction: column; gap: 10px; }
+.ses { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 14px; align-items: center; text-align: start; width: 100%; border: 2px solid var(--line); background: var(--surface); border-radius: 20px; padding: 10px 14px; transition: transform .15s, border-color .15s; }
+.ses:hover { transform: translateY(-2px); border-color: var(--pink); }
+.ses.is-now { border-color: var(--pink); background: var(--pink-soft); }
+.ses-num { width: 64px; height: 64px; border-radius: 18px; display: grid; place-items: center; align-content: center; font-family: var(--font-display); line-height: 1; }
+.ses-num small { font-size: .78rem; font-weight: 600; }
+.ses-num b { font-size: 1.7rem; }
+.ses-title { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ses-time { color: var(--muted); font-size: .9rem; }
+.bar { display: flex; height: 10px; border-radius: 99px; overflow: hidden; background: var(--surface-2); margin-top: 6px; }
+.bar i { display: block; height: 100%; }
+.bar .ok { background: var(--ok); } .bar .late { background: var(--late); } .bar .exc { background: var(--exc); } .bar .run { background: var(--run); } .bar .abs { background: var(--abs); }
+.ses-nums { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+@media (max-width: 560px) { .ses { grid-template-columns: 56px minmax(0, 1fr); } .ses-num { width: 56px; height: 56px; } .ses-nums { grid-column: 1 / -1; justify-content: flex-start; } }
+
+.chip { display: inline-flex; align-items: center; gap: 4px; border-radius: 999px; padding: 1px 10px; font-size: .82rem; font-weight: 700; font-family: var(--font-body); white-space: nowrap; }
+.chip.ok { background: var(--ok-soft); color: var(--ok); } .chip.late { background: var(--late-soft); color: var(--late); }
+.chip.exc { background: var(--exc-soft); color: var(--exc); } .chip.abs { background: var(--abs-soft); color: var(--abs); }
+.chip.run { background: var(--run-soft); color: var(--run); }
+.chip.now { background: var(--pink); color: var(--pink-ink); } .chip.soft { background: var(--surface-2); color: var(--muted); }
+
+/* attendance list */
+.att-list { display: flex; flex-direction: column; gap: 8px; }
+.att-row { display: grid; grid-template-columns: 54px minmax(0, 1fr) 70px auto; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 16px; background: var(--surface-2); border: 2px solid transparent; }
+.att-row.st-ok { border-color: color-mix(in srgb, var(--ok) 35%, transparent); }
+.att-row.st-late { border-color: color-mix(in srgb, var(--late) 45%, transparent); }
+.att-row.st-exc { border-color: color-mix(in srgb, var(--exc) 40%, transparent); }
+.att-row.st-abs { border-color: color-mix(in srgb, var(--abs) 40%, transparent); }
+.att-row.st-run { border-color: color-mix(in srgb, var(--run) 45%, transparent); }
+.att-id { font-family: var(--font-display); font-weight: 700; color: var(--muted); text-align: center; }
+.att-name { font-weight: 700; overflow-wrap: anywhere; }
+.att-time { color: var(--muted); font-size: .88rem; }
+.seg { display: inline-flex; background: var(--surface); border: 2px solid var(--line); border-radius: 14px; padding: 3px; gap: 3px; }
+.seg button { border: none; background: transparent; border-radius: 10px; padding: 3px 10px; font-weight: 700; font-size: .88rem; color: var(--muted); }
+.seg button.on.ok { background: var(--ok); color: #fff; } .seg button.on.late { background: var(--late); color: #fff; }
+.seg button.on.exc { background: var(--exc); color: #fff; } .seg button.on.abs { background: var(--abs); color: #fff; } .seg button.on.run { background: var(--run); color: #fff; }
+@media (max-width: 640px) { .att-row { grid-template-columns: 46px minmax(0, 1fr) auto; } .att-time { text-align: end; } .att-row .seg { grid-column: 1 / -1; justify-self: stretch; } .seg button { flex: 1; } }
+
+/* timetable */
+.scroll-x { overflow-x: auto; }
+.tt { border-collapse: separate; border-spacing: 6px; min-width: 720px; width: 100%; }
+.tt th { font-family: var(--font-display); font-weight: 700; padding: 4px; }
+.tt th small { display: block; font-family: var(--font-body); font-weight: 500; color: var(--muted); font-size: .78rem; }
+.tt td.day { font-family: var(--font-display); font-weight: 700; white-space: nowrap; padding-inline-end: 6px; }
+.tt input { width: 100%; min-width: 64px; text-align: center; border: 2px dashed var(--line); border-radius: 14px; padding: 9px 4px; background: var(--surface); font-weight: 700; }
+.tt input.filled { border-style: solid; border-color: transparent; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* timing */
+.modes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 520px) { .modes { grid-template-columns: minmax(0, 1fr); } }
+.mode { border: 2px solid var(--line); border-radius: 18px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; cursor: pointer; background: var(--surface-2); }
+.mode:has(input:checked) { border-color: var(--pink); background: var(--pink-soft); }
+.mode input { accent-color: var(--pink); margin-top: 6px; }
+.mode b { font-family: var(--font-display); font-size: 1.05rem; display: block; }
+.prow { display: grid; grid-template-columns: 76px minmax(0, 1fr) minmax(0, 1fr) 70px 40px; gap: 8px; align-items: center; }
+@media (max-width: 520px) { .prow { grid-template-columns: 60px minmax(0, 1fr) minmax(0, 1fr) 36px; } .prow .len { display: none; } }
+.prow .pn { font-family: var(--font-display); font-weight: 700; }
+.icon-btn { border: 2px solid var(--line); background: var(--surface-2); border-radius: 12px; width: 36px; height: 36px; display: grid; place-items: center; color: var(--abs); font-weight: 800; }
+.daystrip { position: relative; height: 46px; background: var(--surface-2); border-radius: 14px; overflow: hidden; margin-top: 6px; }
+.daystrip span { position: absolute; top: 6px; bottom: 6px; border-radius: 10px; display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: .85rem; overflow: hidden; }
+
+/* students */
+.chips-filter { display: flex; flex-wrap: wrap; gap: 6px; }
+.fchip { border: 2px solid var(--line); background: var(--surface-2); border-radius: 999px; padding: 3px 12px; font-weight: 700; font-size: .88rem; }
+.fchip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.srow { display: grid; grid-template-columns: 76px minmax(0, 1fr) 90px 36px; gap: 6px; align-items: center; }
+@media (max-width: 520px) { .srow { grid-template-columns: 54px minmax(0, 1fr) 62px 32px; gap: 4px; } .srow .input { padding: 6px 6px; } }
+.slist { display: flex; flex-direction: column; gap: 6px; max-height: 560px; overflow-y: auto; padding-inline-end: 4px; }
+.drop { border: 3px dashed var(--pink); border-radius: 20px; background: var(--pink-soft); padding: 18px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
+.drop.over { background: var(--yellow-soft); border-color: var(--yellow); }
+.drop b { font-family: var(--font-display); font-size: 1.1rem; }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.irow { display: grid; grid-template-columns: 28px 52px minmax(0, 1fr); gap: 6px; align-items: center; }
+.irow input[type=checkbox] { accent-color: var(--pink); width: 18px; height: 18px; }
+.irow .num { font-family: var(--font-display); font-weight: 700; color: var(--muted); text-align: center; }
+.ilist { display: flex; flex-direction: column; gap: 5px; max-height: 340px; overflow-y: auto; margin-block: 10px; }
+.empty { text-align: center; padding: 26px 10px; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.empty svg { width: 76px; height: 76px; }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.inline { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.check { display: inline-flex; gap: 6px; align-items: center; font-weight: 700; font-size: .92rem; }
+.check input { accent-color: var(--pink); width: 18px; height: 18px; }
+
+/* login + toast */
+.login { max-width: 380px; margin: 40px auto; text-align: center; }
+.login .mascot { width: 96px; height: 96px; margin: 0 auto 6px; }
+#toast { position: fixed; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); left: 50%; transform: translateX(-50%) translateY(30px); opacity: 0; background: var(--ink); color: var(--bg); padding: 10px 18px; border-radius: 16px; font-weight: 700; transition: .25s; z-index: 20; max-width: calc(100% - 32px); pointer-events: none; }
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+#toast.err { background: var(--abs); color: #fff; }
+.loading { padding: 30px; text-align: center; color: var(--muted); font-family: var(--font-display); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap" id="app">
+  <header class="top">
+    <svg class="mascot" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="24" cy="24" r="17" fill="var(--pink)"/><circle cx="76" cy="24" r="17" fill="var(--pink)"/>
+      <circle cx="24" cy="24" r="9" fill="var(--yellow)"/><circle cx="76" cy="24" r="9" fill="var(--yellow)"/>
+      <rect x="10" y="20" width="80" height="74" rx="30" fill="var(--pink)"/>
+      <rect x="20" y="30" width="60" height="22" rx="8" fill="var(--surface)"/>
+      <circle cx="37" cy="41" r="4" fill="var(--ink)"/><circle cx="63" cy="41" r="4" fill="var(--ink)"/>
+      <circle cx="27" cy="62" r="6" fill="var(--yellow)" opacity=".9"/><circle cx="73" cy="62" r="6" fill="var(--yellow)" opacity=".9"/>
+      <rect x="41" y="58" width="18" height="15" rx="5" fill="var(--surface)"/>
+      <path d="M40 80 Q50 88 60 80" stroke="var(--surface)" stroke-width="4" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div class="top-text">
+      <h1>لوحة <span>التحضير</span></h1>
+      <div class="dates" id="dates"></div>
+    </div>
+    <div class="now-pill" id="now-pill" hidden><i></i><span></span></div>
+  </header>
+  <div class="banner" id="demo-banner" hidden>معاينة ببيانات تجريبية للتجربة. بعد وضع رابط السكربت في SCRIPT_URL تظهر هنا طالباتك وتحضير جهاز البصمة الحقيقي.</div>
+
+  <section class="card login" id="login" hidden>
+    <h2>أهلًا أستاذة 👋</h2>
+    <p class="muted">اكتبي رمز الدخول لفتح اللوحة</p>
+    <form id="login-form" class="stack">
+      <input class="input" id="pin" type="password" inputmode="numeric" autocomplete="current-password" placeholder="رمز الدخول" style="text-align:center;font-size:1.3rem">
+      <button class="btn" type="submit">دخول</button>
+      <div class="muted" id="login-msg"></div>
+    </form>
+  </section>
+
+  <nav class="tabs" id="tabs" role="tablist" hidden>
+    <button class="tab" role="tab" data-tab="today"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>اليوم</button>
+    <button class="tab" role="tab" data-tab="att"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>التحضير</button>
+    <button class="tab" role="tab" data-tab="table"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 10h18M9 4v17M16 2v4M8 2v4"/></svg>جدول الحصص</button>
+    <button class="tab" role="tab" data-tab="time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>التوقيت</button>
+    <button class="tab" role="tab" data-tab="students"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M16 4a4 4 0 0 1 0 8M22 21c0-3-2-5-4-5.5"/></svg>الطالبات</button>
+  </nav>
+
+  <main id="main"></main>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+document.documentElement.dir = 'rtl';
+document.documentElement.lang = 'ar';
+
+// ====== ضعي هنا رابط تطبيق الويب (ينتهي بـ /exec) ======
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyOvXRA28tmu9ylfklapeOwHwujCbbwn5RrMz3jZEIpfCTX7NE14RGvvrh0415HVUUeAg/exec';
+// =========================================================
+const IN_GAS = !!(window.google && google.script && google.script.run);
+const DEMO = !IN_GAS && !SCRIPT_URL;
+const DAYS = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'];
+const WD = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+const STATUS = [{ k: 'حاضرة', c: 'ok' }, { k: 'متأخرة', c: 'late' }, { k: 'مستأذنة', c: 'exc' }, { k: 'هاربة', c: 'run' }, { k: 'غائبة', c: 'abs' }];
+const CLS = Object.fromEntries(STATUS.map(s => [s.k, s.c]));
+const S = { pin: '', settings: {}, periods: [], table: [], students: [], today: '', tab: 'today', logs: {},
+  att: { date: '', period: '', section: '' }, draftPeriods: null, draftSettings: null, draftStudents: null, stuDirty: false,
+  imp: { rows: [], file: '', kind: '', section: '', start: '', replace: false }, stuFilter: '', stuSearch: '' };
+
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const pad = n => String(n).padStart(2, '0');
+const toMin = t => { const m = String(t).match(/(\d{1,2}):(\d{2})/); return m ? +m[1] * 60 + +m[2] : 0; };
+const fromMin = m => pad(Math.floor(m / 60) % 24) + ':' + pad(m % 60);
+const nowMin = () => { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); };
+const iso = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+const realToday = () => iso(new Date());
+const dayName = s => WD[new Date(s + 'T12:00:00').getDay()];
+const byNum = (a, b) => String(a).localeCompare(String(b), 'ar', { numeric: true });
+const clone = o => JSON.parse(JSON.stringify(o));
+const store = { get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} } };
+
+function fmtDate(s, cal) {
+  try {
+    const o = cal === 'h' ? { day: 'numeric', month: 'long', year: 'numeric' } : { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    return new Intl.DateTimeFormat(cal === 'h' ? 'ar-SA-u-ca-islamic-umalqura-nu-latn' : 'ar-SA-u-ca-gregory-nu-latn', o).format(new Date(s + 'T12:00:00'));
+  } catch (e) { return s; }
+}
+
+let toastT;
+function toast(msg, err) {
+  const t = $('#toast'); t.textContent = msg; t.className = 'show' + (err ? ' err' : '');
+  clearTimeout(toastT); toastT = setTimeout(() => t.className = '', 2600);
+}
+
+function call(action, data) {
+  if (DEMO) return new Promise((res, rej) => setTimeout(() => {
+    try { const r = Demo.api(action, clone(data || {})); (r && r.error) ? rej(new Error(r.error)) : res(clone(r)); } catch (e) { rej(e); }
+  }, 150));
+  if (!IN_GAS) return fetch(SCRIPT_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ pin: S.pin, action, data: data || {} }) })
+    .then(r => { if (!r.ok) throw new Error('الخادم ردّ برمز ' + r.status); return r.json(); })
+    .then(r => { if (r && r.error) throw new Error(r.error); return r; }, e => { throw e instanceof Error ? e : new Error(String(e)); });
+  return new Promise((res, rej) => google.script.run
+    .withSuccessHandler(r => (r && r.error) ? rej(new Error(r.error)) : res(r))
+    .withFailureHandler(e => rej(e instanceof Error ? e : new Error(String(e))))
+    .api(S.pin, action, data || {}));
+}
+
+// ---------- data helpers ----------
+function sections() {
+  const set = new Set(S.students.map(s => s.section).concat(S.table.map(t => t.section)).filter(Boolean));
+  return [...set].sort(byNum);
+}
+const secIndex = sec => Math.max(0, sections().indexOf(sec));
+const secColor = sec => sec ? `var(--c${(secIndex(sec) % 8) + 1})` : 'transparent';
+const studentsOf = sec => S.students.filter(s => s.section === sec).sort((a, b) => a.id - b.id);
+
+function sessionsFor(date) {
+  if (S.settings.mode === 'يومي') return sections().map(sec => ({ period: 'يومي', section: sec, start: S.settings.dayStart, end: '' }));
+  const dn = dayName(date);
+  return S.periods.map(p => {
+    const t = S.table.find(x => x.day === dn && x.period === p.n);
+    return t ? { period: p.n, section: t.section, start: p.start, end: p.end } : null;
+  }).filter(Boolean);
+}
+function sessionState(date, s) {
+  const t = realToday();
+  if (date < t) return 'done';
+  if (date > t) return 'later';
+  if (s.period === 'يومي') return 'now';
+  const n = nowMin();
+  if (n < toMin(s.start)) return 'later';
+  if (n <= toMin(s.end)) return 'now';
+  return 'done';
+}
+function counts(date, s) {
+  const studs = studentsOf(s.section); const ids = new Set(studs.map(x => x.id));
+  const c = { total: studs.length, 'حاضرة': 0, 'متأخرة': 0, 'مستأذنة': 0, 'هاربة': 0, 'غائبة': 0 };
+  (S.logs[date] || []).forEach(l => { if (l.period === String(s.period) && ids.has(l.id) && c[l.status] !== undefined && l.status !== 'غائبة') c[l.status]++; });
+  c['غائبة'] = Math.max(0, c.total - c['حاضرة'] - c['متأخرة'] - c['مستأذنة'] - c['هاربة']);
+  return c;
+}
+async function loadDay(date, force) {
+  if (!S.logs[date] || force) S.logs[date] = await call('day', { date });
+}
+
+// ---------- header ----------
+function renderHeader() {
+  $('#dates').textContent = fmtDate(S.today) + ' · ' + fmtDate(S.today, 'h');
+  const pill = $('#now-pill');
+  const cur = S.today === realToday() && S.settings.mode !== 'يومي' ? sessionsFor(S.today).find(s => sessionState(S.today, s) === 'now') : null;
+  pill.hidden = false;
+  pill.querySelector('span').textContent = cur ? `الآن: الحصة ${cur.period} · ${cur.section}` : (S.settings.mode === 'يومي' ? 'تحضير يومي' : 'لا توجد حصة الآن');
+}
+
+// ---------- tabs ----------
+function setTab(t) {
+  S.tab = t;
+  document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === t)));
+  render();
+}
+async function render() {
+  const m = $('#main');
+  try {
+    if (S.tab === 'today') await renderToday(m);
+    else if (S.tab === 'att') await renderAtt(m);
+    else if (S.tab === 'table') renderTable(m);
+    else if (S.tab === 'time') renderTime(m);
+    else if (S.tab === 'students') renderStudents(m);
+  } catch (e) { m.innerHTML = `<div class="card empty">تعذّر التحميل: ${esc(e.message)}</div>`; }
+}
+
+// ---------- today ----------
+const EMPTY_ART = '<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="24" cy="24" r="15" fill="var(--pink-soft)"/><circle cx="76" cy="24" r="15" fill="var(--pink-soft)"/><rect x="12" y="20" width="76" height="70" rx="28" fill="var(--pink-soft)"/><circle cx="38" cy="48" r="4" fill="var(--muted)"/><circle cx="62" cy="48" r="4" fill="var(--muted)"/><path d="M42 70 Q50 64 58 70" stroke="var(--muted)" stroke-width="4" fill="none" stroke-linecap="round"/></svg>';
+
+function barHtml(c) {
+  if (!c.total) return '<div class="bar"></div>';
+  const w = k => (c[k] / c.total * 100).toFixed(1) + '%';
+  return `<div class="bar"><i class="ok" style="width:${w('حاضرة')}"></i><i class="late" style="width:${w('متأخرة')}"></i><i class="exc" style="width:${w('مستأذنة')}"></i><i class="run" style="width:${w('هاربة')}"></i><i class="abs" style="width:${w('غائبة')}"></i></div>`;
+}
+
+async function renderToday(m) {
+  if (!S.logs[S.today]) m.innerHTML = '<div class="loading">لحظة… نجهّز اليوم</div>';
+  await loadDay(S.today);
+  if (S.tab !== 'today') return;
+  const ses = sessionsFor(S.today);
+  const tot = { 'حاضرة': 0, 'متأخرة': 0, 'مستأذنة': 0, 'هاربة': 0, 'غائبة': 0 };
+  ses.filter(s => sessionState(S.today, s) !== 'later').forEach(s => { const c = counts(S.today, s); for (const k in tot) tot[k] += c[k]; });
+  const kpis = STATUS.map(s => `<div class="kpi ${s.c}"><b>${tot[s.k]}</b><span>${s.k === 'غائبة' ? 'غائبة' : s.k}</span></div>`).join('');
+  const list = ses.map(s => {
+    const st = sessionState(S.today, s), c = counts(S.today, s);
+    const stChip = st === 'now' ? '<span class="chip now">الآن</span>' : st === 'later' ? '<span class="chip soft">لم تبدأ</span>' : '<span class="chip soft">انتهت</span>';
+    const nums = st === 'later' ? `<span class="chip soft">${c.total} طالبة</span>` :
+      `<span class="chip ok">${c['حاضرة']} حاضرة</span><span class="chip late">${c['متأخرة']} متأخرة</span>${c['مستأذنة'] ? `<span class="chip exc">${c['مستأذنة']} مستأذنة</span>` : ''}${c['هاربة'] ? `<span class="chip run">${c['هاربة']} هاربة</span>` : ''}<span class="chip abs">${c['غائبة']} غائبة</span>`;
+    return `<button class="ses ${st === 'now' ? 'is-now' : ''}" data-go="${esc(s.period)}" data-sec="${esc(s.section)}">
+      <div class="ses-num" style="background:${secColor(s.section)}">${s.period === 'يومي' ? '<b style="font-size:1.1rem">يومي</b>' : `<small>الحصة</small><b>${esc(s.period)}</b>`}</div>
+      <div><div class="ses-title">شعبة ${esc(s.section)} ${stChip}</div>
+      <div class="ses-time tnum">${s.end ? `<bdi dir="ltr">${esc(s.start)} – ${esc(s.end)}</bdi>` : 'من ' + esc(s.start)}</div>${st === 'later' ? '' : barHtml(c)}</div>
+      <div class="ses-nums">${nums}</div></button>`;
+  }).join('');
+  m.innerHTML = `<div class="stack">
+    <div class="kpis">${kpis}</div>
+    <section class="card"><div class="card-head"><h2>حصص ${esc(dayName(S.today))}</h2><button class="btn ghost small" id="refresh-today">تحديث</button></div>
+    ${ses.length ? `<div class="sessions">${list}</div>` : `<div class="empty">${EMPTY_ART}<div>لا توجد حصص في جدول هذا اليوم</div><button class="btn small" data-goto="table">أضيفي حصصك في الجدول</button></div>`}
+    </section></div>`;
+}
+
+// ---------- attendance ----------
+function scheduledSection(date, period) {
+  if (period === 'يومي') return '';
+  const t = S.table.find(x => x.day === dayName(date) && x.period === String(period));
+  return t ? t.section : '';
+}
+async function renderAtt(m) {
+  const a = S.att;
+  if (!a.date) a.date = S.today;
+  if (!S.logs[a.date]) m.innerHTML = '<div class="loading">لحظة… نجيب كشف الحضور</div>';
+  await loadDay(a.date);
+  if (S.tab !== 'att') return;
+  const daily = S.settings.mode === 'يومي';
+  const ses = sessionsFor(a.date);
+  if (daily) a.period = 'يومي';
+  if (!a.period || (!daily && a.period === 'يومي')) {
+    const now = ses.find(s => sessionState(a.date, s) === 'now');
+    a.period = String((now || ses[0] || S.periods[0] || { n: '1' }).period || (now || ses[0] || S.periods[0] || { n: '1' }).n);
+  }
+  if (!a.section) a.section = scheduledSection(a.date, a.period) || sections()[0] || '';
+  const pOpts = daily ? '<option value="يومي">تحضير يومي</option>' : S.periods.map(p => {
+    const sec = scheduledSection(a.date, p.n);
+    return `<option value="${esc(p.n)}" ${p.n === a.period ? 'selected' : ''}>الحصة ${esc(p.n)} · ${esc(p.start)}${sec ? ' · ' + esc(sec) : ''}</option>`;
+  }).join('');
+  const sOpts = sections().map(s => `<option ${s === a.section ? 'selected' : ''}>${esc(s)}</option>`).join('');
+  const studs = studentsOf(a.section);
+  const logs = (S.logs[a.date] || []).filter(l => l.period === String(a.period));
+  const c = counts(a.date, { section: a.section, period: a.period });
+  const rows = studs.map(s => {
+    const l = logs.find(x => x.id === s.id); const st = l ? l.status : 'غائبة'; const cl = CLS[st] || 'abs';
+    return `<div class="att-row st-${cl}"><div class="att-id">${esc(s.id)}</div><div class="att-name">${esc(s.name)}</div>
+      <div class="att-time tnum">${l ? esc(l.time === 'يدوي' ? 'يدوي' : String(l.time).slice(0, 5)) : '—'}</div>
+      <div class="seg" role="group" aria-label="حالة ${esc(s.name)}">${STATUS.map(x => `<button type="button" class="${x.c} ${x.k === st ? 'on' : ''}" data-mark="${esc(s.id)}" data-st="${x.k}" aria-pressed="${x.k === st}">${x.k}</button>`).join('')}</div></div>`;
+  }).join('');
+  const sched = scheduledSection(a.date, a.period);
+  m.innerHTML = `<section class="card">
+    <div class="card-head"><h2>كشف الحضور</h2><div class="inline"><button class="btn ghost small" id="att-refresh">تحديث</button></div></div>
+    <div class="row-fields" style="margin-bottom:14px">
+      <div class="field"><label for="att-date">التاريخ</label><input class="input" type="date" id="att-date" value="${esc(a.date)}"></div>
+      <div class="field" style="flex-grow:2"><label for="att-period">الحصة</label><select class="input" id="att-period">${pOpts}</select></div>
+      <div class="field"><label for="att-section">الشعبة</label><select class="input" id="att-section">${sOpts}</select></div>
+    </div>
+    ${!daily && sched && sched !== a.section ? `<div class="banner" style="margin-bottom:12px">حسب الجدول هذه الحصة لشعبة ${esc(sched)}.</div>` : ''}
+    ${!daily && !sched ? `<div class="banner" style="margin-bottom:12px">هذه الحصة غير موجودة في جدول ${esc(dayName(a.date))}، والجهاز لن يقبل البصمات فيها. يمكنك التحضير يدويًا هنا.</div>` : ''}
+    <div class="inline" style="margin-bottom:12px"><span class="chip soft">${c.total} طالبة</span><span class="chip ok">${c['حاضرة']} حاضرة</span><span class="chip late">${c['متأخرة']} متأخرة</span><span class="chip exc">${c['مستأذنة']} مستأذنة</span><span class="chip run">${c['هاربة']} هاربة</span><span class="chip abs">${c['غائبة']} غائبة</span></div>
+    ${studs.length ? `<div class="att-list">${rows}</div>` : `<div class="empty">${EMPTY_ART}<div>لا توجد طالبات في هذه الشعبة بعد</div><button class="btn small" data-goto="students">استيراد الأسماء</button></div>`}
+  </section>`;
+}
+function mark(id, status) {
+  const a = S.att; const arr = S.logs[a.date] || (S.logs[a.date] = []);
+  const prev = clone(arr);
+  const i = arr.findIndex(l => l.id === id && l.period === String(a.period));
+  if (status === 'غائبة') { if (i >= 0) arr.splice(i, 1); }
+  else if (i >= 0) arr[i] = Object.assign({}, arr[i], { status });
+  else { const s = S.students.find(x => x.id === id) || {}; arr.push({ date: a.date, time: 'يدوي', id, name: s.name, section: s.section, status, period: String(a.period) }); }
+  render();
+  call('mark', { date: a.date, period: String(a.period), id, status }).catch(e => { S.logs[a.date] = prev; render(); toast('لم يُحفظ التعديل: ' + e.message, true); });
+}
+
+// ---------- timetable ----------
+function renderTable(m) {
+  const secs = sections();
+  const head = S.periods.map(p => `<th>الحصة ${esc(p.n)}<small class="tnum">${esc(p.start)}</small></th>`).join('');
+  const body = DAYS.map((d, di) => `<tr><td class="day">${d}</td>${S.periods.map(p => {
+    const t = S.table.find(x => x.day === d && x.period === p.n); const v = t ? t.section : '';
+    return `<td><input class="${v ? 'filled' : ''}" list="sec-list" id="tt-${di}-${esc(p.n)}" data-day="${d}" data-p="${esc(p.n)}" value="${esc(v)}" placeholder="—" aria-label="${d} الحصة ${esc(p.n)}" style="background:${v ? secColor(v) : 'var(--surface)'}"></td>`;
+  }).join('')}</tr>`).join('');
+  const legend = secs.map(s => { const n = S.table.filter(t => t.section === s).length; return `<span class="chip" style="background:${secColor(s)};color:var(--ink)">${esc(s)} · ${n} حصص</span>`; }).join('');
+  m.innerHTML = `<section class="card">
+    <div class="card-head"><div><h2>جدول الحصص</h2><div class="muted">اكتبي اسم الشعبة في خانة الحصة، واتركي الخانة فارغة إذا لم تكن لديك حصة.</div></div><button class="btn" id="tt-save">حفظ الجدول</button></div>
+    ${S.settings.mode === 'يومي' ? '<div class="banner" style="margin-bottom:12px">الجهاز الآن على وضع «التحضير اليومي»، لذلك لا يُستخدم الجدول. غيّري الوضع من تبويب التوقيت.</div>' : ''}
+    <div class="scroll-x"><table class="tt"><thead><tr><th></th>${head}</tr></thead><tbody>${body}</tbody></table></div>
+    <datalist id="sec-list">${secs.map(s => `<option value="${esc(s)}">`).join('')}</datalist>
+    ${secs.length ? `<div class="legend" style="margin-top:12px">${legend}</div>` : ''}
+  </section>`;
+}
+async function saveTable() {
+  const list = [...document.querySelectorAll('.tt input')].map(i => ({ day: i.dataset.day, period: i.dataset.p, section: i.value.trim() })).filter(x => x.section);
+  const btn = $('#tt-save'); btn.disabled = true;
+  try { S.table = await call('saveTable', { list }); toast('تم حفظ الجدول ✓'); render(); renderHeader(); }
+  catch (e) { toast(e.message, true); } finally { btn.disabled = false; }
+}
+
+// ---------- timing ----------
+function renderTime(m) {
+  if (!S.draftPeriods) S.draftPeriods = clone(S.periods);
+  if (!S.draftSettings) S.draftSettings = clone(S.settings);
+  const st = S.draftSettings, P = S.draftPeriods;
+  const daily = st.mode === 'يومي';
+  const rows = P.map((p, i) => `<div class="prow"><div class="pn">الحصة ${i + 1}</div>
+    <input class="input tnum" type="time" id="ps-${i}" data-i="${i}" data-k="start" value="${esc(p.start)}" aria-label="بداية الحصة ${i + 1}">
+    <input class="input tnum" type="time" id="pe-${i}" data-i="${i}" data-k="end" value="${esc(p.end)}" aria-label="نهاية الحصة ${i + 1}">
+    <span class="len muted tnum">${Math.max(0, toMin(p.end) - toMin(p.start))} د</span>
+    <button class="icon-btn" type="button" data-del-p="${i}" aria-label="حذف الحصة ${i + 1}">×</button></div>`).join('');
+  let strip = '';
+  if (P.length) {
+    const a = Math.min(...P.map(p => toMin(p.start))), b = Math.max(...P.map(p => toMin(p.end))), span = Math.max(1, b - a);
+    strip = P.map((p, i) => `<span style="right:${((toMin(p.start) - a) / span * 100).toFixed(2)}%;width:${Math.max(0, (toMin(p.end) - toMin(p.start)) / span * 100).toFixed(2)}%;background:var(--c${(i % 8) + 1})">${i + 1}</span>`).join('');
+    strip = `<div class="daystrip" aria-hidden="true">${strip}</div><div class="inline muted tnum" style="justify-content:space-between;font-size:.85rem"><span>${fromMin(a)}</span><span>${fromMin(b)}</span></div>`;
+  }
+  m.innerHTML = `<div class="grid2">
+    <section class="card stack">
+      <h2>طريقة التحضير</h2>
+      <div class="modes">
+        <label class="mode"><input type="radio" name="mode" id="mode-p" value="حصص" ${!daily ? 'checked' : ''}><span><b>لكل حصة</b><span class="muted">الجهاز يعرف الحصة والشعبة من الجدول</span></span></label>
+        <label class="mode"><input type="radio" name="mode" id="mode-d" value="يومي" ${daily ? 'checked' : ''}><span><b>مرة في اليوم</b><span class="muted">مثل التحضير عند بوابة المدرسة</span></span></label>
+      </div>
+      <div class="row-fields">
+        ${daily ? `<div class="field"><label for="set-dayStart">بداية الدوام</label><input class="input tnum" type="time" id="set-dayStart" value="${esc(st.dayStart)}"></div>` : ''}
+        <div class="field"><label for="set-lateMin">تُحسب متأخرة بعد (دقيقة)</label><input class="input tnum" type="number" min="0" max="60" id="set-lateMin" value="${esc(st.lateMin)}"></div>
+        ${!daily ? `<div class="field"><label for="set-earlyMin">يبدأ الجهاز قبل الحصة بـ (دقيقة)</label><input class="input tnum" type="number" min="0" max="30" id="set-earlyMin" value="${esc(st.earlyMin)}"></div>` : ''}
+      </div>
+      <div class="muted" style="font-size:.9rem">${daily ? `مثال: البصمة بعد ${esc(fromMin(toMin(st.dayStart) + (+st.lateMin || 0)))} تُسجَّل «متأخرة».` : `مثال: إذا بدأت الحصة 07:00 يقبل الجهاز البصمات من ${esc(fromMin(420 - (+st.earlyMin || 0)))}، وبعد ${esc(fromMin(420 + (+st.lateMin || 0)))} تُسجَّل «متأخرة».`}</div>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>أوقات الحصص</h2><button class="btn ghost small" id="add-period">+ حصة</button></div>
+      ${strip}
+      <div class="stack" style="margin-top:12px">${rows || '<div class="muted">لا توجد حصص. أضيفي الحصة الأولى.</div>'}</div>
+    </section>
+  </div>
+  <div class="inline" style="margin-top:16px;justify-content:flex-end"><button class="btn ghost" id="time-reset">تراجع</button><button class="btn" id="time-save">حفظ التوقيت</button></div>`;
+}
+async function saveTime() {
+  const P = S.draftPeriods.map(p => ({ start: p.start, end: p.end }));
+  for (let i = 0; i < P.length; i++) {
+    if (!P[i].start || !P[i].end || toMin(P[i].start) >= toMin(P[i].end)) return toast(`تأكدي من وقت الحصة ${i + 1}: البداية قبل النهاية`, true);
+    if (i && toMin(P[i].start) < toMin(P[i - 1].end)) return toast(`الحصة ${i + 1} تبدأ قبل نهاية الحصة ${i}`, true);
+  }
+  const btn = $('#time-save'); btn.disabled = true;
+  try {
+    S.settings = await call('saveSettings', S.draftSettings);
+    S.periods = await call('savePeriods', { list: P });
+    S.draftPeriods = null; S.draftSettings = null; S.att.period = '';
+    toast('تم حفظ التوقيت ✓'); renderHeader(); render();
+  } catch (e) { toast(e.message, true); } finally { btn.disabled = false; }
+}
+
+// ---------- students ----------
+function renderStudents(m) {
+  if (!S.draftStudents) { S.draftStudents = clone(S.students); S.stuDirty = false; }
+  const D = S.draftStudents, secs = sections();
+  const fl = D.map((s, i) => ({ s, i })).filter(({ s }) => (!S.stuFilter || s.section === S.stuFilter) && (!S.stuSearch || s.name.includes(S.stuSearch) || s.id.includes(S.stuSearch)))
+    .sort((a, b) => byNum(a.s.section, b.s.section) || a.s.id - b.s.id);
+  const chips = [`<button class="fchip" data-filter="" aria-pressed="${!S.stuFilter}">الكل · ${D.length}</button>`]
+    .concat(secs.map(s => `<button class="fchip" data-filter="${esc(s)}" aria-pressed="${S.stuFilter === s}" style="${S.stuFilter === s ? '' : `background:${secColor(s)}`}">${esc(s)} · ${D.filter(x => x.section === s).length}</button>`)).join('');
+  const list = fl.map(({ s, i }) => `<div class="srow">
+    <input class="input tnum" id="st-id-${i}" data-i="${i}" data-k="id" value="${esc(s.id)}" inputmode="numeric" aria-label="رقم البصمة">
+    <input class="input" id="st-name-${i}" data-i="${i}" data-k="name" value="${esc(s.name)}" aria-label="الاسم">
+    <input class="input" id="st-sec-${i}" data-i="${i}" data-k="section" value="${esc(s.section)}" list="sec-list2" aria-label="الشعبة" style="background:${secColor(s.section)}">
+    <button class="icon-btn" type="button" data-del-s="${i}" aria-label="حذف ${esc(s.name)}">×</button></div>`).join('');
+  const imp = S.imp;
+  if (!imp.section) imp.section = S.stuFilter || '';
+  m.innerHTML = `<div class="grid2">
+    <section class="card stack" id="imp-card">
+      <h2>استيراد الأسماء</h2>
+      <label class="drop" id="drop" for="imp-file">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 15V4M7 9l5-5 5 5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+        <b>اسحبي الملف هنا أو اضغطي للاختيار</b>
+        <span class="muted">Excel أو CSV أو PDF (مثل كشف الطالبات من نظام نور)</span>
+        <input type="file" id="imp-file" accept=".xlsx,.xls,.csv,.pdf">
+      </label>
+      <div class="row-fields">
+        <div class="field"><label for="imp-section">إلى الشعبة</label><input class="input" id="imp-section" list="sec-list2" value="${esc(imp.section)}" placeholder="مثال: 3/2"></div>
+        <div class="field"><label for="imp-start">أول رقم بصمة</label><input class="input tnum" id="imp-start" type="number" min="1" max="1000" value="${esc(imp.start || suggestStart(imp.section, imp.replace))}"></div>
+      </div>
+      <label class="check"><input type="checkbox" id="imp-replace" ${imp.replace ? 'checked' : ''}> استبدال طالبات هذه الشعبة بالكامل</label>
+      <div id="imp-preview">${importPreview()}</div>
+    </section>
+    <section class="card">
+      <div class="card-head"><h2>الطالبات</h2><div class="inline"><button class="btn ghost small" id="add-student">+ طالبة</button><button class="btn small" id="stu-save" ${S.stuDirty ? '' : 'disabled'}>حفظ التعديلات</button></div></div>
+      <div class="stack">
+        <div class="chips-filter">${chips}</div>
+        <input class="input" id="stu-search" type="search" placeholder="ابحثي بالاسم أو رقم البصمة" value="${esc(S.stuSearch)}">
+        ${fl.length ? `<div class="srow muted" style="font-size:.82rem;font-weight:700"><span>البصمة</span><span>الاسم</span><span>الشعبة</span><span></span></div><div class="slist">${list}</div>` : `<div class="empty">${EMPTY_ART}<div>لا توجد طالبات هنا بعد. ابدئي باستيراد ملف الأسماء.</div></div>`}
+      </div>
+    </section>
+  </div>
+  <datalist id="sec-list2">${secs.map(s => `<option value="${esc(s)}">`).join('')}</datalist>`;
+}
+function suggestStart(section, replace) {
+  const ids = S.students.map(s => +s.id);
+  const mine = S.students.filter(s => s.section === section).map(s => +s.id);
+  const m = String(section || '').match(/(\d+)(?!.*\d)/);
+  const base = m ? +m[1] * 100 : 0;
+  if (!replace && mine.length) return Math.max(...mine) + 1;
+  if (base && base < 1000) {
+    const others = new Set(S.students.filter(s => s.section !== section).map(s => +s.id));
+    let n = base + 1; while (others.has(n)) n++;
+    return n;
+  }
+  return (ids.length ? Math.max(...ids) : 0) + 1;
+}
+function importPreview() {
+  const imp = S.imp;
+  if (!imp.rows.length) return imp.file ? `<div class="banner">لم أجد أسماء واضحة في «${esc(imp.file)}». جرّبي ملف Excel، أو تأكدي أن الـ PDF نصّي وليس صورة ممسوحة.</div>` : '';
+  const start = +(imp.start || suggestStart(imp.section, imp.replace));
+  let n = 0;
+  const on = imp.rows.filter(r => r.on).length;
+  const rows = imp.rows.map((r, i) => {
+    const id = r.on ? start + (n++) : '';
+    return `<div class="irow"><input type="checkbox" id="imp-on-${i}" data-ion="${i}" ${r.on ? 'checked' : ''} aria-label="تضمين"><span class="num tnum">${id}</span><input class="input" id="imp-name-${i}" data-iname="${i}" value="${esc(r.name)}" aria-label="الاسم"></div>`;
+  }).join('');
+  return `<div class="card-head" style="margin:6px 0 0"><h3>وجدت ${imp.rows.length} اسمًا</h3><span class="chip soft">${esc(imp.file)}</span></div>
+    <div class="muted" style="font-size:.88rem">راجعي الأسماء وصحّحي أي اسم، وألغي تحديد السطور التي ليست أسماء.</div>
+    ${imp.kind === 'pdf' ? '<div class="inline" style="margin-top:8px"><button class="btn ghost small" id="imp-rev-letters">الحروف مقلوبة؟ اعكسيها</button><button class="btn ghost small" id="imp-rev-words">ترتيب الكلمات مقلوب؟</button></div>' : ''}
+    <div class="ilist">${rows}</div>
+    <div class="inline" style="justify-content:space-between"><button class="btn ghost small" id="imp-cancel">إلغاء</button><button class="btn" id="imp-save" ${on ? '' : 'disabled'}>إضافة ${on} طالبة${imp.section ? ' إلى ' + esc(imp.section) : ''}</button></div>`;
+}
+function refreshImport() {
+  const box = $('#imp-preview'); if (box) box.innerHTML = importPreview();
+  const st = $('#imp-start'); if (st && !S.imp.start) st.value = suggestStart(S.imp.section, S.imp.replace);
+}
+async function saveImport() {
+  const imp = S.imp;
+  if (!imp.section.trim()) return toast('اكتبي اسم الشعبة أولًا', true);
+  const start = +(imp.start || suggestStart(imp.section, imp.replace));
+  const list = imp.rows.filter(r => r.on && r.name.trim()).map((r, i) => ({ id: String(start + i), name: r.name.trim() }));
+  const btn = $('#imp-save'); btn.disabled = true;
+  try {
+    const r = await call('importStudents', { section: imp.section.trim(), replace: imp.replace, list });
+    S.students = r.students; S.draftStudents = null; S.stuFilter = imp.section.trim();
+    S.imp = { rows: [], file: '', kind: '', section: imp.section, start: '', replace: false };
+    toast(`تمت إضافة ${r.added} طالبة ✓`); render();
+  } catch (e) { toast(e.message, true); btn.disabled = false; }
+}
+async function saveStudents() {
+  const btn = $('#stu-save'); btn.disabled = true;
+  try { S.students = await call('saveStudents', { list: S.draftStudents }); S.draftStudents = null; toast('تم حفظ الطالبات ✓'); render(); }
+  catch (e) { toast(e.message, true); btn.disabled = false; }
+}
+
+// ---------- file parsing ----------
+const LIBS = {
+  xlsx: ['https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'],
+  pdf: ['https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js']
+};
+const libCache = {};
+function loadLib(k) {
+  if (!libCache[k]) libCache[k] = LIBS[k].reduce((p, src) => p.then(() => new Promise((res, rej) => {
+    const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = () => rej(new Error('تعذّر تحميل قارئ الملفات، تأكدي من الإنترنت'));
+    document.head.appendChild(s);
+  })), Promise.resolve());
+  return libCache[k];
+}
+const AR = 'ء-غف-يٱ-ۓ';
+const AR_WORD = new RegExp('^[' + AR + ']+$');
+const STOP = new Set(('الاسم اسم الطالب الطالبة الطالبات الصف الفصل الشعبة شعبة المدرسة مدرسة وزارة التعليم المملكة العربية السعودية إدارة ادارة رقم الهوية السجل المدني الجنسية سعودي سعودية الثانوي الثانوية ثانوي الثالث الثاني الأول الاول المتوسطة المرحلة العام الدراسي الدراسية تاريخ الميلاد صفحة من مكتب ملاحظات الجوال جوال ولي الأمر الامر التوقيع العدد كشف قائمة بيانات الحالة منتظم منتظمة مسار عام المسار الفصلي فصل الإدارة العامة للتعليم بمحافظة بمنطقة محافظة منطقة الرياض جدة مكة القسم ملاحظة إجمالي اجمالي المجموع درجة الدرجة حضور غياب').split(' '));
+function normAr(s) { return String(s ?? '').normalize('NFKC').replace(/[ً-ْٰـ‎‏‪-‮]/g, '').replace(/\s+/g, ' ').trim(); }
+function bestRun(text) {
+  const words = normAr(text).split(/[^ء-غف-يٱ-ۓ]+/).filter(Boolean);
+  const runs = []; let cur = [];
+  for (const w of words) { if (STOP.has(w) || w.length < 2 && w !== 'و') { if (cur.length) runs.push(cur); cur = []; } else cur.push(w); }
+  if (cur.length) runs.push(cur);
+  let best = null;
+  for (const r of runs) if (r.length >= 2 && r.length <= 7 && (!best || r.length > best.length)) best = r;
+  return best ? best.join(' ') : '';
+}
+function extractFromLines(lines) {
+  const out = [];
+  for (const cells of lines) {
+    let best = '';
+    for (const c of cells) { const r = bestRun(c); const plain = normAr(c); if (r && r === plain.replace(/[^ء-غف-يٱ-ۓ ]+/g, ' ').replace(/\s+/g, ' ').trim() && r.split(' ').length > best.split(' ').filter(Boolean).length) best = r; }
+    if (!best) best = bestRun(cells.join(' '));
+    if (best) out.push(best);
+  }
+  return out;
+}
+const dedupe = a => [...new Set(a)];
+const revLetters = n => n.split(' ').map(w => [...w].reverse().join('')).join(' ');
+const revWords = n => n.split(' ').reverse().join(' ');
+function autoFix(names) {
+  const words = names.flatMap(n => n.split(' '));
+  let r = names;
+  if (words.length && words.filter(w => /^[ةى]/.test(w)).length / words.length > 0.04) r = r.map(revLetters);
+  const firstAl = r.filter(n => /^ال/.test(n.split(' ')[0])).length, lastAl = r.filter(n => /^ال/.test(n.split(' ').at(-1))).length;
+  if (firstAl > r.length * 0.3 && firstAl > lastAl * 2) r = r.map(revWords);
+  return r;
+}
+async function parsePdf(file) {
+  await loadLib('pdf');
+  pdfjsLib.GlobalWorkerOptions.workerSrc = LIBS.pdf[1];
+  const pdf = await pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()), isEvalSupported: false }).promise;
+  const lines = [];
+  for (let p = 1; p <= pdf.numPages; p++) {
+    const tc = await (await pdf.getPage(p)).getTextContent();
+    const rows = [];
+    tc.items.forEach(it => {
+      const s = (it.str || '').trim(); if (!s) return;
+      const y = it.transform[5], x = it.transform[4];
+      let r = rows.find(r => Math.abs(r.y - y) < 3.5);
+      if (!r) { r = { y, items: [] }; rows.push(r); }
+      r.items.push({ x, s });
+    });
+    rows.sort((a, b) => b.y - a.y).forEach(r => lines.push(r.items.sort((a, b) => b.x - a.x).map(i => i.s)));
+  }
+  return autoFix(dedupe(extractFromLines(lines)));
+}
+async function parseSheet(file) {
+  await loadLib('xlsx');
+  const wb = /\.csv$/i.test(file.name) ? XLSX.read(await file.text(), { type: 'string' }) : XLSX.read(new Uint8Array(await file.arrayBuffer()), { type: 'array' });
+  for (const sn of wb.SheetNames) {
+    const rows = XLSX.utils.sheet_to_json(wb.Sheets[sn], { header: 1, defval: '', raw: false });
+    let col = -1, startRow = 0;
+    for (let i = 0; i < Math.min(rows.length, 25) && col < 0; i++) (rows[i] || []).forEach((c, j) => { if (col < 0 && /اسم/.test(String(c)) && !/المدرسة|الأم|الام|ولي/.test(String(c))) { col = j; startRow = i + 1; } });
+    const names = col >= 0 ? rows.slice(startRow).map(r => bestRun(r[col])).filter(Boolean) : extractFromLines(rows.map(r => r.map(String)));
+    if (names.length) return dedupe(names);
+  }
+  return [];
+}
+async function handleFile(file) {
+  if (!file) return;
+  const kind = /\.pdf$/i.test(file.name) ? 'pdf' : /\.(xlsx|xls|csv)$/i.test(file.name) ? 'sheet' : '';
+  if (!kind) return toast('الملف يجب أن يكون Excel أو CSV أو PDF', true);
+  const box = $('#imp-preview'); if (box) box.innerHTML = '<div class="loading">أقرأ الملف…</div>';
+  try {
+    const names = kind === 'pdf' ? await parsePdf(file) : await parseSheet(file);
+    S.imp.rows = names.map(n => ({ name: n, on: true })); S.imp.file = file.name; S.imp.kind = kind;
+  } catch (e) { S.imp.rows = []; S.imp.file = file.name; toast(e.message || 'تعذّرت قراءة الملف', true); }
+  refreshImport();
+}
+
+// ---------- events ----------
+document.addEventListener('click', e => {
+  const t = e.target.closest('button, [data-go]'); if (!t) return;
+  if (t.dataset.tab) return setTab(t.dataset.tab);
+  if (t.dataset.goto) return setTab(t.dataset.goto);
+  if (t.dataset.go !== undefined) { S.att = { date: S.today, period: t.dataset.go, section: t.dataset.sec }; return setTab('att'); }
+  if (t.dataset.mark) return mark(t.dataset.mark, t.dataset.st);
+  if (t.id === 'refresh-today') return loadDay(S.today, true).then(render);
+  if (t.id === 'att-refresh') return loadDay(S.att.date, true).then(render);
+  if (t.id === 'tt-save') return saveTable();
+  if (t.id === 'add-period') { const P = S.draftPeriods, last = P[P.length - 1]; const s = last ? toMin(last.end) + 5 : 420; P.push({ n: String(P.length + 1), start: fromMin(s), end: fromMin(s + 45) }); return render(); }
+  if (t.dataset.delP !== undefined) { S.draftPeriods.splice(+t.dataset.delP, 1); return render(); }
+  if (t.id === 'time-save') return saveTime();
+  if (t.id === 'time-reset') { S.draftPeriods = null; S.draftSettings = null; return render(); }
+  if (t.dataset.filter !== undefined) { S.stuFilter = t.dataset.filter; return render(); }
+  if (t.dataset.delS !== undefined) { S.draftStudents.splice(+t.dataset.delS, 1); S.stuDirty = true; return render(); }
+  if (t.id === 'add-student') {
+    const sec = S.stuFilter || sections()[0] || '';
+    const ids = S.draftStudents.map(s => +s.id);
+    S.draftStudents.push({ id: String((ids.length ? Math.max(...ids) : 0) + 1), name: '', section: sec }); S.stuDirty = true; S.stuSearch = '';
+    render(); setTimeout(() => { const el = document.querySelectorAll('[data-k="name"]'); el.length && el[el.length - 1].focus(); }, 50); return;
+  }
+  if (t.id === 'stu-save') return saveStudents();
+  if (t.id === 'imp-save') return saveImport();
+  if (t.id === 'imp-cancel') { S.imp.rows = []; S.imp.file = ''; return refreshImport(); }
+  if (t.id === 'imp-rev-letters') { S.imp.rows.forEach(r => r.name = revLetters(r.name)); return refreshImport(); }
+  if (t.id === 'imp-rev-words') { S.imp.rows.forEach(r => r.name = revWords(r.name)); return refreshImport(); }
+});
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.id === 'att-date') { S.att.date = t.value || S.today; S.att.period = ''; S.att.section = ''; return render(); }
+  if (t.id === 'att-period') { S.att.period = t.value; S.att.section = scheduledSection(S.att.date, t.value) || S.att.section; return render(); }
+  if (t.id === 'att-section') { S.att.section = t.value; return render(); }
+  if (t.name === 'mode') { S.draftSettings.mode = t.value; return render(); }
+  if (t.id && t.id.startsWith('set-')) { S.draftSettings[t.id.slice(4)] = t.value; return render(); }
+  if (t.dataset.k && t.dataset.i !== undefined && t.closest('.prow')) { S.draftPeriods[+t.dataset.i][t.dataset.k] = t.value; return render(); }
+  if (t.id === 'imp-file') return handleFile(t.files[0]);
+  if (t.id === 'imp-replace') { S.imp.replace = t.checked; S.imp.start = ''; return refreshImport(); }
+  if (t.dataset.ion !== undefined) { S.imp.rows[+t.dataset.ion].on = t.checked; return refreshImport(); }
+});
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (t.closest('.tt')) { const v = t.value.trim(); t.classList.toggle('filled', !!v); t.style.background = v && sections().includes(v) ? secColor(v) : v ? 'var(--surface-2)' : 'var(--surface)'; return; }
+  if (t.closest('.srow') && t.dataset.k) { S.draftStudents[+t.dataset.i][t.dataset.k] = t.value; if (!S.stuDirty) { S.stuDirty = true; const b = $('#stu-save'); if (b) b.disabled = false; } return; }
+  if (t.id === 'stu-search') { S.stuSearch = t.value.trim(); const pos = t.selectionStart; render(); const n = $('#stu-search'); if (n) { n.focus(); try { n.setSelectionRange(pos, pos); } catch (x) {} } return; }
+  if (t.id === 'imp-section') { S.imp.section = t.value; S.imp.start = ''; return refreshImport(); }
+  if (t.id === 'imp-start') { S.imp.start = t.value; const box = $('#imp-preview'); if (box) box.innerHTML = importPreview(); return; }
+  if (t.dataset.iname !== undefined) { S.imp.rows[+t.dataset.iname].name = t.value; return; }
+});
+document.addEventListener('dragover', e => { const d = e.target.closest && e.target.closest('#drop'); if (d) { e.preventDefault(); d.classList.add('over'); } });
+document.addEventListener('dragleave', e => { const d = e.target.closest && e.target.closest('#drop'); if (d) d.classList.remove('over'); });
+document.addEventListener('drop', e => { const d = e.target.closest && e.target.closest('#drop'); if (d) { e.preventDefault(); d.classList.remove('over'); handleFile(e.dataTransfer.files[0]); } });
+$('#login-form').addEventListener('submit', e => { e.preventDefault(); S.pin = $('#pin').value.trim(); start(); });
+
+// auto refresh every 30s while viewing today
+setInterval(() => {
+  if (document.hidden || !S.today) return;
+  const d = S.tab === 'today' ? S.today : S.tab === 'att' ? S.att.date : null;
+  if (d && d === realToday() && !document.activeElement.matches('input')) loadDay(d, true).then(() => { renderHeader(); render(); }).catch(() => {});
+}, 30000);
+
+async function start() {
+  try {
+    const b = await call('boot');
+    Object.assign(S, { settings: b.settings, periods: b.periods, table: b.table, students: b.students, today: b.today });
+    store.set('att-pin', S.pin);
+    $('#login').hidden = true; $('#tabs').hidden = false; $('#demo-banner').hidden = !DEMO;
+    renderHeader(); setTab(S.tab);
+  } catch (e) {
+    $('#login').hidden = false; $('#tabs').hidden = true; $('#main').innerHTML = '';
+    $('#login-msg').textContent = e.message === 'PIN' ? (S.pin ? 'الرمز غير صحيح، حاولي مرة أخرى' : '') : 'تعذّر الاتصال بالسكربت: ' + e.message + ' — تأكدي من رابط SCRIPT_URL ومن أن النشر «أي شخص»';
+  }
+}
+
+// ---------- demo backend (only when opened outside Apps Script) ----------
+const Demo = DEMO ? (() => {
+  let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647; const pick = a => a[Math.floor(rnd() * a.length)];
+  const F = 'نورة سارة ريم لمى جود رهف شهد غلا دانة هيا العنود لين جنى ملاك أريج ديما رزان شوق وعد ليان يارا تالا مها أسيل ريما جوري روان لجين'.split(' ');
+  const M = 'محمد عبدالله فهد سعد خالد ناصر عبدالرحمن سلطان تركي ماجد فيصل بندر'.split(' ');
+  const L = 'القحطاني الشهري الزهراني الغامدي العنزي الدوسري المالكي الشمري العمري الأحمدي الجهني اليامي'.split(' ');
+  const secs = ['3/1', '3/2', '3/3', '3/4', '3/5', '3/6', '3/7', '3/8'];
+  const db = { settings: { mode: 'حصص', dayStart: '07:00', lateMin: '10', earlyMin: '10' }, students: [], logs: [], generated: {},
+    periods: [['07:00', '07:45'], ['07:50', '08:35'], ['08:40', '09:25'], ['09:45', '10:30'], ['10:35', '11:20'], ['11:25', '12:10'], ['12:15', '13:00']].map(([s, e], i) => ({ n: String(i + 1), start: s, end: e })),
+    table: [] };
+  secs.forEach((sec, si) => { for (let i = 1; i <= 25 + (si % 4); i++) db.students.push({ id: String((si + 1) * 100 + i), name: `${pick(F)} ${pick(M)} ${pick(L)}`, section: sec }); });
+  const plan = { 'الأحد': { 1: '3/1', 2: '3/2', 4: '3/3', 6: '3/4' }, 'الاثنين': { 2: '3/5', 3: '3/6', 5: '3/7', 7: '3/8' }, 'الثلاثاء': { 1: '3/2', 3: '3/1', 4: '3/4', 6: '3/3' }, 'الأربعاء': { 2: '3/6', 3: '3/5', 5: '3/8' }, 'الخميس': { 1: '3/7', 2: '3/3', 4: '3/1', 5: '3/6' } };
+  Object.entries(plan).forEach(([day, ps]) => Object.entries(ps).forEach(([p, sec]) => db.table.push({ day, period: p, section: sec })));
+  let today = realToday();
+  while ([5, 6].includes(new Date(today + 'T12:00:00').getDay())) { const d = new Date(today + 'T12:00:00'); d.setDate(d.getDate() - 1); today = iso(d); }
+  function gen(date) {
+    if (db.generated[date] || date > today) return; db.generated[date] = true;
+    const dn = dayName(date);
+    db.table.filter(t => t.day === dn).forEach(t => {
+      const p = db.periods.find(x => x.n === t.period); if (!p) return;
+      if (date === realToday() && nowMin() < toMin(p.start)) return;
+      const cut = date === realToday() && nowMin() <= toMin(p.end) ? 0.6 : 1;
+      db.students.filter(s => s.section === t.section).forEach(s => {
+        if (rnd() > cut) return; const r = rnd();
+        const status = r < .84 ? 'حاضرة' : r < .92 ? 'متأخرة' : r < .95 ? 'مستأذنة' : null; if (!status) return;
+        const m = toMin(p.start) + (status === 'متأخرة' ? 11 + Math.floor(rnd() * 14) : Math.floor(rnd() * 8) - 5);
+        db.logs.push({ date, time: status === 'مستأذنة' ? 'يدوي' : fromMin(m) + ':' + pad(Math.floor(rnd() * 60)), id: s.id, name: s.name, section: s.section, status, period: t.period });
+      });
+    });
+  }
+  function validate(list) {
+    const seen = {};
+    for (const s of list) {
+      const id = String(s.id).trim();
+      if (!/^\d+$/.test(id) || +id < 1 || +id > 1000) return 'رقم البصمة ' + id + ' يجب أن يكون بين 1 و 1000';
+      if (!String(s.name || '').trim()) return 'يوجد اسم فارغ للرقم ' + id;
+      if (seen[id]) return 'رقم البصمة ' + id + ' مكرر: ' + seen[id] + ' و ' + s.name;
+      seen[id] = s.name;
+    }
+    return '';
+  }
+  return { api(action, d) {
+    switch (action) {
+      case 'boot': return { settings: db.settings, periods: db.periods, table: db.table, students: db.students, today };
+      case 'day': gen(d.date); return db.logs.filter(l => l.date === d.date);
+      case 'mark': {
+        const i = db.logs.findIndex(l => l.date === d.date && l.id === d.id && l.period === d.period);
+        if (d.status === 'غائبة') { if (i >= 0) db.logs.splice(i, 1); }
+        else if (i >= 0) db.logs[i].status = d.status;
+        else { const s = db.students.find(x => x.id === d.id) || {}; db.logs.push({ date: d.date, time: 'يدوي', id: d.id, name: s.name, section: s.section, status: d.status, period: d.period }); }
+        return { ok: true };
+      }
+      case 'saveSettings': Object.assign(db.settings, d); return db.settings;
+      case 'savePeriods': db.periods = d.list.map((p, i) => ({ n: String(i + 1), start: p.start, end: p.end })); return db.periods;
+      case 'saveTable': db.table = d.list.filter(t => t.section); return db.table;
+      case 'saveStudents': { const err = validate(d.list); if (err) return { error: err }; db.students = d.list.map(s => ({ id: String(s.id).trim(), name: String(s.name).trim(), section: String(s.section).trim() })); return db.students; }
+      case 'importStudents': {
+        const sec = String(d.section || '').trim(); if (!sec) return { error: 'اختاري الشعبة أولًا' };
+        let all = db.students; if (d.replace) all = all.filter(s => s.section !== sec);
+        const merged = all.concat(d.list.map(s => ({ id: String(s.id), name: s.name, section: sec })));
+        const err = validate(merged); if (err) return { error: err };
+        db.students = merged; return { students: db.students, added: d.list.length };
+      }
+    }
+    return { error: 'UNKNOWN' };
+  } };
+})() : null;
+
+if (DEMO) start();
+else { S.pin = store.get('att-pin') || ''; if (S.pin) start(); else $('#login').hidden = false; }
+})();
+</script>
+
+</body>
+</html>
